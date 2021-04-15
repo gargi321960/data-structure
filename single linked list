@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<conio.h>
+struct node
+{
+ int data;
+ struct node *next;       
+}*head;
+int c=0;
+void create(int);
+void display();
+void deleteatbeg();
+void deleteatend();
+void deleteatany(int);
+void insertatbeg();
+void insertatend();
+void insertatany();
+void main()
+{
+ int n,choice,data;
+ while(1)
+{
+ printf("\n*****MENNU*****\n");
+ printf("1.Create\n2.Display\n3.Deleteatbeg\n4.Deleteatend\n5.Deleteatany\n6.insertatbeg\n7.insertatend\n8.insertatany\n9.Exit\n");
+ printf("Enter your choice:");
+ scanf("%d",&choice);
+ switch(choice)
+   {
+     case 1:printf("Enter the number of nodes you want to create:");
+            scanf("%d",&n);
+            create(n);
+            break;
+     case 2:display();
+            break;
+     case 3:deleteatbeg();
+            break;
+     case 4:deleteatend();
+            break; 
+     case 5:deleteatany(c);                    
+            break;
+     case 6:insertatbeg();
+            break;
+     case 7:insertatend();
+            break; 
+     case 8:insertatany();                    
+            break;       
+     case 9:exit(0);
+     default:printf("Wrong choice!!!");                     
+    }
+ }
+getch();
+}
+void create(int n)
+{
+ struct node *newnode,*temp;
+ int i,data;
+ head=(struct node*)malloc(sizeof(struct node));
+ printf("Enter the data you want to insert:");
+ scanf("%d",&data); 
+ if(head==NULL)
+   printf("Unable to allocate memory.");
+ else
+  {              
+   head->data=data;
+   head->next=NULL; 
+   temp=head;               
+  }       
+  for(i=2;i<=n;i++)
+  {
+   newnode=(struct node*)malloc(sizeof(struct node));
+   printf("Enter the data you want to insert:");
+   scanf("%d",&data);
+   newnode->data=data;
+   newnode->next=NULL;
+   temp->next=newnode;
+   temp=newnode;                 
+  }
+}
+void display()
+{
+ struct node *temp=head;
+ if(head==NULL)
+   printf("List is empty");
+ else
+   {
+     printf("Data in the list:\n");
+     c=0;           
+     while(temp!=NULL)
+     {
+      c++;                
+      printf("%d\n",temp->data);
+      temp=temp->next;                 
+     }             
+   }  
+    printf("The number of nodes are:%d",c);  
+}
+void deleteatbeg()
+{
+ struct node *q=head;
+ head=q->next;
+ free(q);     
+}
+void deleteatend()
+{
+ struct node *q=head,*temp;
+ while(q->next!=NULL)
+ {  
+   temp=q;                               
+   q=q->next;               
+ }  
+ temp->next=NULL;   
+ free(q);
+}
+void deleteatany(int c)
+{
+ struct node *q=head,*end=head,*s;
+ int p,i;     
+ printf("Enter the position:");
+ scanf("%d",&p);
+ if(p==c)
+  deleteatend();
+ else if(p==1)
+  deleteatbeg(); 
+ for(i=1;i<p;i++)
+ {
+  q=end;
+  end=end->next;                 
+  s=end->next;
+ }
+ q->next=s;
+ free(end);
+}
+void insertatbeg()
+{
+ struct node *newnode;
+ int data;
+ newnode=(struct node*)malloc(sizeof(struct node));
+ printf("Enter your data:");
+ scanf("%d",&data);
+ newnode->data=data;
+ newnode->next=head;
+ head=newnode;     
+}
+void insertatend()
+{
+ struct node *newnode,*temp;
+ int data;
+ newnode=(struct node*)malloc(sizeof(struct node));
+ printf("Enter your data:");
+ scanf("%d",&data);
+ newnode->data=data;
+ newnode->next=NULL;
+ temp=head;
+ while(temp->next!=NULL)
+   temp=temp->next;       
+   temp->next=newnode;            
+}
+void insertatany()
+{
+ struct node *newnode,*temp=head,*q;
+ int i,n,data;
+ printf("Enter the position you want to insert:");
+ scanf("%d",&n);
+ if(n==1)
+  insertatbeg();
+ else
+ { 
+   for(i=1;i<n;i++)
+    {
+      q=temp;               
+      temp=temp->next;                 
+     } 
+     newnode=(struct node*)malloc(sizeof(struct node));
+     printf("Enter your data:");
+     scanf("%d",&data);
+     newnode->data=data;    
+     newnode->next=temp;
+     q->next=newnode;
+  }
+}  
