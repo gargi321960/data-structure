@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<conio.h>
+void insertionsort(int*,int);//function declaration--> through pointer we can pass the array,range of the array
+void main()
+{
+ int a[10],i,n;
+ printf("Enter the Range=");
+ scanf("%d",&n);//n=5
+ //input
+ for(i=0;i<n;i++)
+ {
+   printf("Enter the No.=");
+   scanf("%d",&a[i]);
+ }
+ insertionsort(&a[0],n);//calling  
+ getch();
+}
+void insertionsort(int *a,int y)//a=&a[0]  *a=7 y=n  y=5
+ {
+  int i,j,temp;
+  //insertion sorting
+  for(i=1;i<y;i++)//i=5 5<5 i++
+  {
+    j=i;//j=4
+    while(j>0 && a[j-1]>a[j])//0>0  && a[0]>a[1]  2>1
+     {
+       temp=a[j-1];//temp=2
+       a[j-1]=a[j];//a[0]=1
+       a[j]=temp;//a[1]=2
+       j--;//j=0
+    }
+  }
+ //printing
+ for(i=0;i<y;i++)
+  printf("%d ",a[i]);
+ }
