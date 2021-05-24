@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+  int array[100], n, i, j, pos, swap;
+  printf("Enter number of elements\n");
+  scanf("%d", &n);//n=5
+  printf("Enter %d integers\n", n);
+  //input loop
+  for (i = 0; i < n; i++)
+    scanf("%d", &array[i]);
+ //selection
+  for (i = 0; i < (n - 1); i++)//i=4 4<4
+  {
+    pos = i;//pos=3
+    for (j= i + 1; j < n; j++)//j=5 5<5
+    {
+      if (array[pos] > array[j])//70>40
+        pos = j;//pos=4
+    }
+    if (pos != j)//4!=5
+    {
+      swap = array[i];//swap=70
+      array[i] = array[pos];//array[2]=30
+      array[pos] = swap;//array[4]=70
+    }
+  printf("Sorted list in ascending order:\n");
+  for (j = 0; j < n; j++)
+    printf("%d\n", array[j]);
+  }
+  getch();
+}
